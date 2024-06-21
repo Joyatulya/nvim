@@ -1,0 +1,11 @@
+{
+"Starting thing svelte": {
+  "prefix": "scts",
+  "body": [
+    "<script lang=\"ts\">",
+    "  ${1:code}",
+    "</script>"
+  ],
+  "description": "Starting thing svelte"
+}
+}

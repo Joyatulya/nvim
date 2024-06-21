@@ -1,0 +1,29 @@
+
+{
+  "Class Definition": {
+        "prefix": "class",
+        "body": [
+            "class ${1:name} {",
+            "\tconstructor(${2:parameters}) {",
+            "\t\t$0",
+            "\t}",
+            "}"
+        ],
+        "description": "Class Definition"
+    },
+
+"Page Load": {
+  "prefix": "s-page-load",
+  "body": [
+"import type { PageLoad } from \"./$types\";",
+"",
+"export const load: PageLoad = async ({ parent }) => {",
+" const { supabase } = await parent()",
+" ${1}",
+" return {}",
+"}"
+  ],
+  "description": "PageLoad Function"
+}
+
+}

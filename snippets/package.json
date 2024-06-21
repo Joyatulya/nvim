@@ -1,0 +1,22 @@
+{
+  "name": "snips",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "svelte",
+        "path": "./svelte.json"
+      },
+      {
+        "language": "js",
+        "path": "./javascript.json"
+      },
+      {
+        "language": "json",
+        "path": "json.json"
+      }
+    ]
+  }
+}
