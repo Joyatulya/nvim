@@ -19,7 +19,7 @@ vim.keymap.set(mode, 'E', '<C-u>', {})
 vim.keymap.set(mode, 'i', 'l', {})
 -- To enter the insert mode
 vim.keymap.set(mode, 'I', 'i', {})
-vim.keymap.set(mode, '<leader>nf', ':e %:h/', {desc = "Create a new file in same directory"})
+vim.keymap.set(mode, '<leader>nf', ':e %:h/', { desc = 'Create a new file in same directory' })
 
 vim.g.have_nerd_font = true
 
@@ -250,18 +250,18 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-{
-  "nvim-tree/nvim-tree.lua",
-  version = "*",
-  lazy = false,
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
-  config = function()
-    require("nvim-tree").setup {}
-    vim.keymap.set(mode, '<C-b>', ':NvimTreeToggle<CR>')
-  end,
-},
+      {
+        'nvim-tree/nvim-tree.lua',
+        version = '*',
+        lazy = false,
+        dependencies = {
+          'nvim-tree/nvim-web-devicons',
+        },
+        config = function()
+          require('nvim-tree').setup {}
+          vim.keymap.set(mode, '<C-b>', ':NvimTreeToggle<CR>')
+        end,
+      },
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -319,6 +319,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sc', function()
+        builtin.live_grep { default_text = 'console\\.', initial_mode = 'normal' }
+      end, { desc = '[S]earch [C]onsole Logs' })
       vim.keymap.set('n', '<leader>.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
@@ -625,8 +628,8 @@ require('lazy').setup({
           {
             'rafamadriz/friendly-snippets',
             config = function()
-              require('luasnip.loaders.from_vscode').lazy_load({})
-              require('luasnip.loaders.from_vscode').lazy_load({paths = {"./snippets"}})
+              require('luasnip.loaders.from_vscode').lazy_load {}
+              require('luasnip.loaders.from_vscode').lazy_load { paths = { './snippets' } }
             end,
           },
         },
@@ -707,6 +710,7 @@ require('lazy').setup({
         },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'codeium' },
           { name = 'luasnip' },
           { name = 'path' },
         },
@@ -753,13 +757,26 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
+require('mini.cursorword').setup()
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      --[[ require('mini.surround').setup {
+        mappings = {
+          add = 'sa', -- Add surrounding in Normal and Visual modes
+          delete = 'sd', -- Delete surrounding
+          find = 'sf', -- Find surrounding (to the right)
+          find_left = 'sF', -- Find surrounding (to the left)
+          highlight = 'sh', -- Highlight surrounding
+          replace = 'sr', -- Replace surrounding
+          update_n_lines = 'sn', -- Update `n_lines`
+
+          suffix_last = 'l', -- Suffix to search with "prev" method
+          suffix_next = 'n', -- Suffix to search with "next" method
+        },
+      } ]]
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
