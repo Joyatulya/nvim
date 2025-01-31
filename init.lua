@@ -19,7 +19,10 @@ vim.keymap.set(mode, 'E', '<C-u>', {})
 vim.keymap.set(mode, 'i', 'l', {})
 -- To enter the insert mode
 vim.keymap.set(mode, 'I', 'i', {})
+
+-- Misc
 vim.keymap.set(mode, '<leader>nf', ':e %:h/', { desc = 'Create a new file in same directory' })
+vim.keymap.set(mode, '<leader>rr', ':LspRestart<CR>', { desc = 'LspRestart' })
 
 vim.g.have_nerd_font = true
 
@@ -780,10 +783,87 @@ require('lazy').setup({
     end,
   },
 
-  { 'tpope/vim-fugitive' },
-
   -- Adding my own things here
-
+  { 'tpope/vim-fugitive' },
+  {
+    'theprimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('harpoon'):setup()
+    end,
+    keys = {
+      {
+        '<leader>An',
+        function()
+          require('harpoon'):list():replace_at(1)
+        end,
+        desc = 'Add harpoon file to 1st slot',
+      },
+      {
+        '<leader>Ae',
+        function()
+          require('harpoon'):list():replace_at(2)
+        end,
+        desc = 'Add harpoon file to 2nd slot',
+      },
+      {
+        '<leader>Ai',
+        function()
+          require('harpoon'):list():replace_at(3)
+        end,
+        desc = 'Add harpoon file to 3rd slot',
+      },
+      {
+        '<leader>Ao',
+        function()
+          require('harpoon'):list():replace_at(4)
+        end,
+        desc = 'Add harpoon file to 4th slot',
+      },
+      {
+        '<leader>aa',
+        function()
+          local harpoon = require 'harpoon'
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        desc = 'harpoon quick menu',
+      },
+      {
+        '<leader>an',
+        function()
+          require('harpoon'):list():select(1)
+        end,
+        desc = 'harpoon to file 1',
+      },
+      {
+        '<leader>ae',
+        function()
+          require('harpoon'):list():select(2)
+        end,
+        desc = 'harpoon to file 2',
+      },
+      {
+        '<leader>ai',
+        function()
+          require('harpoon'):list():select(3)
+        end,
+        desc = 'harpoon to file 3',
+      },
+      {
+        '<leader>ao',
+        function()
+          require('harpoon'):list():select(4)
+        end,
+        desc = 'harpoon to file 4',
+      },
+    },
+  },
+  {
+  "pmizio/typescript-tools.nvim",
+  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  opts = {},
+},
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
