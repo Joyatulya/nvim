@@ -6,20 +6,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Adding Colemak Keybindings
 local mode = { 'n', 'o', 'x' }
-vim.keymap.set(mode, 'm', 'h', {})
--- for search related functionaity
-vim.keymap.set(mode, 'h', 'n', { noremap = true })
-vim.keymap.set(mode, 'H', 'N', { noremap = true })
-vim.keymap.set(mode, 'n', 'j', {})
-vim.keymap.set(mode, 'N', '<C-d>', {})
-vim.keymap.set(mode, 'e', 'k', {})
-vim.keymap.set(mode, 'E', '<C-u>', {})
-vim.keymap.set(mode, 'i', 'l', {})
--- To enter the insert mode
-vim.keymap.set(mode, 'I', 'i', {})
 vim.keymap.set(mode, '<leader>nf', ':e %:h/', { desc = 'Create a new file in same directory' })
+vim.keymap.set(mode, '<leader>;', '<C-W>w', { desc = 'Switch to next window' })
 
 vim.g.have_nerd_font = true
 
@@ -757,7 +746,7 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-require('mini.cursorword').setup()
+      require('mini.cursorword').setup()
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
