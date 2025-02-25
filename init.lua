@@ -9,17 +9,32 @@ vim.g.maplocalleader = ' '
 local mode = { 'n', 'o', 'x' }
 vim.keymap.set(mode, '<leader>nf', ':e %:h/', { desc = 'Create a new file in same directory' })
 vim.keymap.set(mode, '<leader>;', '<C-W>w', { desc = 'Switch to next window' })
-vim.keymap.set(mode, 'm', 'h', {})
--- for search related functionaity
-vim.keymap.set(mode, 'h', 'n', { noremap = true })
-vim.keymap.set(mode, 'H', 'N', { noremap = true })
-vim.keymap.set(mode, 'n', 'j', {})
-vim.keymap.set(mode, 'N', '<C-d>', {})
-vim.keymap.set(mode, 'e', 'k', {})
-vim.keymap.set(mode, 'E', '<C-u>', {})
-vim.keymap.set(mode, 'i', 'l', {})
--- To enter the insert mode
-vim.keymap.set(mode, 'I', 'i', {})
+
+local isLaptop = os.getenv 'isLaptop'
+
+local leftKey = 'h'
+local rightKey = 'l'
+local upKey = 'j'
+local downKey = 'k'
+
+if not isLaptop then
+  vim.keymap.set(mode, 'm', 'h', {})
+  -- for search related functionaity
+  vim.keymap.set(mode, 'h', 'n', { noremap = true })
+  vim.keymap.set(mode, 'H', 'N', { noremap = true })
+  vim.keymap.set(mode, 'n', 'j', {})
+  vim.keymap.set(mode, 'N', '<C-d>', {})
+  vim.keymap.set(mode, 'e', 'k', {})
+  vim.keymap.set(mode, 'E', '<C-u>', {})
+  vim.keymap.set(mode, 'i', 'l', {})
+  -- To enter the insert mode
+  vim.keymap.set(mode, 'I', 'i', {})
+
+  leftKey = 'm'
+  rightKey = 'o'
+  upKey = 'n'
+  downKey = 'e'
+end
 
 -- Misc
 vim.keymap.set(mode, '<leader>nf', ':e %:h/', { desc = 'Create a new file in same directory' })
@@ -845,28 +860,28 @@ require('lazy').setup({
     end,
     keys = {
       {
-        '<leader>An',
+        isLaptop and '<leader>Aj' or '<leader>An',
         function()
           require('harpoon'):list():replace_at(1)
         end,
         desc = 'Add harpoon file to 1st slot',
       },
       {
-        '<leader>Ae',
+        isLaptop and '<leader>Ak' or '<leader>Ae',
         function()
           require('harpoon'):list():replace_at(2)
         end,
         desc = 'Add harpoon file to 2nd slot',
       },
       {
-        '<leader>Ai',
+        isLaptop and '<leader>Al' or '<leader>Ai',
         function()
           require('harpoon'):list():replace_at(3)
         end,
         desc = 'Add harpoon file to 3rd slot',
       },
       {
-        '<leader>Ao',
+        isLaptop and '<leader>A;' or '<leader>Ao',
         function()
           require('harpoon'):list():replace_at(4)
         end,
@@ -881,28 +896,28 @@ require('lazy').setup({
         desc = 'harpoon quick menu',
       },
       {
-        '<leader>an',
+        isLaptop and '<leader>aj' or '<leader>an',
         function()
           require('harpoon'):list():select(1)
         end,
         desc = 'harpoon to file 1',
       },
       {
-        '<leader>ae',
+        isLaptop and '<leader>ak' or '<leader>ae',
         function()
           require('harpoon'):list():select(2)
         end,
         desc = 'harpoon to file 2',
       },
       {
-        '<leader>ai',
+        isLaptop and '<leader>al' or '<leader>ai',
         function()
           require('harpoon'):list():select(3)
         end,
         desc = 'harpoon to file 3',
       },
       {
-        '<leader>ao',
+        isLaptop and '<leader>a;' or '<leader>ao',
         function()
           require('harpoon'):list():select(4)
         end,
@@ -911,10 +926,10 @@ require('lazy').setup({
     },
   },
   {
-  "pmizio/typescript-tools.nvim",
-  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  opts = {},
-},
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
